@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TrackToHire</title>
+
+    <meta
+        name="description"
+        content="Track job applications, monitor progress, and optionally turn Gmail updates into reviewable status suggestions."
+    >
+
+    <link rel="icon" href="tracktohire-logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="landingScreen" class="screen active">
+        <div class="auth-page-shell">
+            <section class="auth-intro" aria-labelledby="landingHeadline">
+                <a class="brand-lockup" href="./" aria-label="TrackToHire home">
+                    <img
+                        src="tracktohire-logo.svg"
+                        alt=""
+                        class="brand-logo"
+                    >
+                    <span>TrackToHire</span>
+                </a>
+
+                <div class="auth-intro-copy">
+                    <p class="eyebrow">BUILT FOR HIGH-VOLUME JOB SEARCHES</p>
+
+                    <h1 id="landingHeadline">
+                        Hundreds of applications. One place to track them.
+                    </h1>
+
+                    <p class="auth-intro-description">
+                        TrackToHire is built for job seekers who apply at scale. Keep every role, status, and email update organized—without relying on spreadsheets or memory.
+                    </p>
+
+                    <div class="benefit-list" aria-label="TrackToHire benefits">
+                        <div class="benefit-item">
+                            <span class="benefit-icon" aria-hidden="true">✓</span>
+                            <div>
+                                <strong>Track every application</strong>
+                                <p>
+                                    Add applications and follow every stage from
+                                    Applied through Offer or Rejected.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <span class="benefit-icon" aria-hidden="true">✓</span>
+                            <div>
+                                <strong>Catch important Gmail updates</strong>
+                                <p>
+                                    Optionally connect Gmail to find application
+                                    updates without searching your inbox.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <span class="benefit-icon" aria-hidden="true">✓</span>
+                            <div>
+                                <strong>Approve every status change</strong>
+                                <p>
+                                    Review suggested status changes before they are
+                                    added to your application history.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="privacy-note">
+                    <span aria-hidden="true">🔒</span>
+                    Gmail connection is optional. Manual tracking always works.
+                </p>
+            </section>
+
+            <main class="auth-panel">
+                <div class="mobile-brand-lockup" aria-hidden="true">
+                    <img src="tracktohire-logo.svg" alt="" class="brand-logo">
+                    <span>TrackToHire</span>
+                </div>
+
+                <div class="auth-container">
+                    <p id="authEyebrow" class="auth-card-eyebrow">
+                        Welcome back
+                    </p>
+
+                    <h2 id="authTitle">Log in to your account</h2>
+
+                    <p id="authDescription" class="auth-description">
+                        Pick up where you left off in your job search.
+                    </p>
+
+                    <form id="authForm" novalidate>
+                        <div class="form-group">
+                            <label for="authEmail">Email address</label>
+
+                            <input
+                                type="email"
+                                id="authEmail"
+                                required
+                                autocomplete="email"
+                                placeholder="you@example.com"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="authPassword">Password</label>
+
+                            <div class="password-field">
+                                <input
+                                    type="password"
+                                    id="authPassword"
+                                    required
+                                    autocomplete="current-password"
+                                    placeholder="Enter your password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-password-target="authPassword"
+                                    aria-label="Show password"
+                                    aria-pressed="false"
+                                >
+                                    <span class="eye-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false">
+                                            <path d="M2.4 12s3.5-6 9.6-6 9.6 6 9.6 6-3.5 6-9.6 6-9.6-6-9.6-6Z"/>
+                                            <circle cx="12" cy="12" r="2.7"/>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div
+                            id="confirmPasswordGroup"
+                            class="form-group hidden"
+                        >
+                            <label for="authConfirmPassword">
+                                Confirm password
+                            </label>
+
+                            <div class="password-field">
+                                <input
+                                    type="password"
+                                    id="authConfirmPassword"
+                                    autocomplete="new-password"
+                                    placeholder="Enter your password again"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-password-target="authConfirmPassword"
+                                    aria-label="Show confirmed password"
+                                    aria-pressed="false"
+                                >
+                                    <span class="eye-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false">
+                                            <path d="M2.4 12s3.5-6 9.6-6 9.6 6 9.6 6-3.5 6-9.6 6-9.6-6-9.6-6Z"/>
+                                            <circle cx="12" cy="12" r="2.7"/>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="loginOptions" class="login-options">
+                            <button
+                                type="button"
+                                id="forgotPasswordBtn"
+                                class="text-button"
+                            >
+                                Forgot password?
+                            </button>
+                        </div>
+
+                        <p
+                            id="authMessage"
+                            class="auth-message hidden"
+                            role="status"
+                            aria-live="polite"
+                        ></p>
+
+                        <button
+                            type="submit"
+                            id="authSubmitBtn"
+                            class="main-login-btn"
+                        >
+                            Log in
+                        </button>
+                    </form>
+
+                    <p class="auth-toggle">
+                        Don't have an account?
+                        <button
+                            type="button"
+                            id="toggleAuthMode"
+                            class="text-button"
+                        >
+                            Create one
+                        </button>
+                    </p>
+                </div>
+
+                <p class="auth-footer-note">
+                    Built to make the application process feel manageable.
+                </p>
+            </main>
+        </div>
+    </div>
+
+    <div id="dashboardScreen" class="screen hidden">
+        <div class="dashboard-shell">
+            <header class="dashboard-header">
+                <div class="dashboard-brand-area">
+                    <a class="dashboard-brand" href="./" aria-label="TrackToHire home">
+                        <img src="tracktohire-logo.svg" alt="" class="dashboard-logo">
+                        <span>TrackToHire</span>
+                    </a>
+
+                    <div class="dashboard-heading">
+                        <p class="dashboard-eyebrow">APPLICATION COMMAND CENTER</p>
+                        <h1>Your job search at a glance</h1>
+                        <p class="dashboard-subtitle">
+                            Find any application quickly and see what needs attention.
+                        </p>
+                    </div>
+                </div>
+
+                <button type="button" id="logoutBtn" class="logout-btn">
+                    Log out
+                </button>
+            </header>
+
+            <section class="stats-section" aria-label="Application status totals">
+                <button class="stat-card stat-card-total active" type="button" data-status-filter="">
+                    <span id="jobCount" class="stat-number">0</span>
+                    <span class="stat-label">Total</span>
+                </button>
+                <button class="stat-card" type="button" data-status-filter="Applied">
+                    <span id="appliedCount" class="stat-number">0</span>
+                    <span class="stat-label">Applied</span>
+                </button>
+                <button class="stat-card" type="button" data-status-filter="Assessment">
+                    <span id="assessmentCount" class="stat-number">0</span>
+                    <span class="stat-label">Assessment</span>
+                </button>
+                <button class="stat-card" type="button" data-status-filter="Interview">
+                    <span id="interviewCount" class="stat-number">0</span>
+                    <span class="stat-label">Interview</span>
+                </button>
+                <button class="stat-card" type="button" data-status-filter="Offer">
+                    <span id="offerCount" class="stat-number">0</span>
+                    <span class="stat-label">Offer</span>
+                </button>
+                <button class="stat-card" type="button" data-status-filter="Rejected">
+                    <span id="rejectedCount" class="stat-number">0</span>
+                    <span class="stat-label">Rejected</span>
+                </button>
+                <button class="stat-card" type="button" data-status-filter="Withdrawn">
+                    <span id="withdrawnCount" class="stat-number">0</span>
+                    <span class="stat-label">Withdrawn</span>
+                </button>
+                <button class="stat-card" type="button" data-status-filter="Unknown">
+                    <span id="unknownCount" class="stat-number">0</span>
+                    <span class="stat-label">Unknown</span>
+                </button>
+            </section>
+
+            <nav class="dashboard-section-navigation" aria-label="Dashboard sections">
+                <div class="dashboard-tabs" role="tablist" aria-label="Dashboard sections">
+                    <button
+                        type="button"
+                        class="dashboard-tab active"
+                        id="jobsTab"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="jobsView"
+                        data-dashboard-view="jobs"
+                    >
+                        Tracked jobs
+                    </button>
+                    <button
+                        type="button"
+                        class="dashboard-tab"
+                        id="emailTab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="emailView"
+                        data-dashboard-view="email"
+                    >
+                        Email updates
+                        <span id="tabSuggestionCount" class="navigation-count hidden">0</span>
+                    </button>
+                </div>
+
+                <div class="mobile-section-picker">
+                    <label for="dashboardSectionSelect">Dashboard section</label>
+                    <select id="dashboardSectionSelect">
+                        <option value="jobs">Tracked jobs</option>
+                        <option value="email">Email updates</option>
+                    </select>
+                </div>
+            </nav>
+
+            <main
+                id="jobsView"
+                class="workspace-panel dashboard-main"
+                role="tabpanel"
+                aria-labelledby="jobsTab"
+                data-dashboard-panel="jobs"
+            >
+                    <section class="dashboard-card form-section">
+                        <div class="section-heading-row">
+                            <div>
+                                <p class="section-kicker">QUICK ADD</p>
+                                <h2>Track a new application</h2>
+                            </div>
+                            <p>Required fields are marked *</p>
+                        </div>
+
+                        <form id="jobForm">
+                            <div class="form-group">
+                                <label for="companyName">Company *</label>
+                                <input type="text" id="companyName" required placeholder="e.g. Netflix">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="jobTitle">Job title *</label>
+                                <input type="text" id="jobTitle" required placeholder="e.g. Cloud Engineer">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" placeholder="e.g. Remote or Seattle, WA">
+                            </div>
+
+                            <div class="form-group job-link-group">
+                                <label for="jobLink">Job or company URL</label>
+                                <input type="text" id="jobLink" inputmode="url" placeholder="company.com/careers/job">
+                            </div>
+
+                            <button type="submit" class="add-application-btn">
+                                Add application
+                            </button>
+                        </form>
+                    </section>
+
+                    <section class="dashboard-card list-section">
+                        <div class="section-heading-row jobs-heading">
+                            <div>
+                                <p class="section-kicker">YOUR PIPELINE</p>
+                                <h2>Your tracked jobs</h2>
+                            </div>
+                            <span id="visibleJobCount" class="visible-job-count">0 shown</span>
+                        </div>
+
+                        <div class="filter-toolbar" aria-label="Application filters">
+                            <div class="search-field">
+                                <span aria-hidden="true">⌕</span>
+                                <label class="visually-hidden" for="jobSearch">Search applications</label>
+                                <input id="jobSearch" type="search" placeholder="Search company, role, or location">
+                            </div>
+
+                            <label class="visually-hidden" for="statusFilter">Filter by status</label>
+                            <select id="statusFilter">
+                                <option value="">All statuses</option>
+                                <option value="Applied">Applied</option>
+                                <option value="Assessment">Assessment</option>
+                                <option value="Interview">Interview</option>
+                                <option value="Offer">Offer</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Withdrawn">Withdrawn</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+
+                            <label class="visually-hidden" for="jobSort">Sort applications</label>
+                            <select id="jobSort">
+                                <option value="newest">Newest first</option>
+                                <option value="oldest">Oldest first</option>
+                                <option value="company">Company A–Z</option>
+                            </select>
+
+                            <button type="button" id="clearFiltersBtn" class="secondary-btn">
+                                Clear
+                            </button>
+                        </div>
+
+                        <div class="table-container">
+                            <table id="jobsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Role</th>
+                                        <th>Location</th>
+                                        <th>Date applied</th>
+                                        <th>Status</th>
+                                        <th>Link</th>
+                                        <th><span class="visually-hidden">Actions</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="jobsTableBody"></tbody>
+                            </table>
+
+                            <p id="emptyJobsMessage" class="empty-message hidden">
+                                You have not added any applications yet.
+                            </p>
+                        </div>
+
+                        <div class="table-footer">
+                            <label for="pageSize">
+                                Rows
+                                <select id="pageSize">
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </label>
+
+                            <div class="pagination-controls">
+                                <button type="button" id="previousPageBtn" class="secondary-btn">Previous</button>
+                                <span id="pageSummary">Page 1 of 1</span>
+                                <button type="button" id="nextPageBtn" class="secondary-btn">Next</button>
+                            </div>
+                        </div>
+                    </section>
+            </main>
+
+            <section
+                id="emailView"
+                class="workspace-panel hidden"
+                role="tabpanel"
+                aria-labelledby="emailTab"
+                data-dashboard-panel="email"
+            >
+                <div class="email-center-heading">
+                    <div>
+                        <p class="section-kicker">EMAIL CENTER</p>
+                        <h2>Review Gmail updates</h2>
+                    </div>
+                    <p>Nothing changes until you confirm it.</p>
+                </div>
+
+                <div class="email-center-grid">
+                    <section id="gmailSection" class="dashboard-card gmail-section">
+                        <div class="gmail-section-header">
+                            <div>
+                                <p class="section-kicker">OPTIONAL AUTOMATION</p>
+                                <h2>Gmail monitoring</h2>
+                            </div>
+                            <span id="gmailConnectionBadge" class="gmail-connection-badge disconnected">
+                                Not connected
+                            </span>
+                        </div>
+
+                        <p class="gmail-description">
+                            Choose when TrackToHire checks Gmail and keep every status change under your control.
+                        </p>
+
+                        <details class="monitoring-how">
+                            <summary>How Gmail updates work</summary>
+                            <ol class="monitoring-steps">
+                                <li>
+                                    <span>1</span>
+                                    <div><strong>Read securely</strong><p>TrackToHire temporarily reads the full email. Full message bodies are not saved.</p></div>
+                                </li>
+                                <li>
+                                    <span>2</span>
+                                    <div><strong>Understand and verify</strong><p>AI identifies the current outcome and must provide exact evidence. Unrelated mail is hidden and uncertainty stays Unknown.</p></div>
+                                </li>
+                                <li>
+                                    <span>3</span>
+                                    <div><strong>Match and approve</strong><p>Strong matches are selected automatically. Otherwise, you choose the application before confirming the change.</p></div>
+                                </li>
+                            </ol>
+                        </details>
+
+                        <div id="gmailDisconnectedView" class="gmail-connection-view">
+                            <p>Manual tracking always works, even when Gmail is disconnected.</p>
+                            <button type="button" id="connectGmailBtn">Connect Gmail</button>
+                        </div>
+
+                        <div id="gmailConnectedView" class="gmail-connection-view hidden">
+                            <p class="connected-email">
+                                Connected as <strong id="connectedGmailEmail"></strong>
+                            </p>
+
+                            <div class="gmail-monitoring-panel">
+                                <span id="gmailMonitoringBadge" class="gmail-monitoring-badge inactive">
+                                    Automatic monitoring off
+                                </span>
+                                <p id="gmailMonitoringDetails" class="gmail-monitoring-details">
+                                    Enable monitoring to receive new email suggestions automatically.
+                                </p>
+                                <button type="button" id="startGmailMonitoringBtn" class="monitoring-btn">
+                                    Enable automatic monitoring
+                                </button>
+                            </div>
+
+                            <div class="gmail-actions">
+                                <button type="button" id="syncGmailBtn" class="secondary-btn">Check now</button>
+                                <button type="button" id="disconnectGmailBtn" class="disconnect-gmail-btn">Disconnect</button>
+                            </div>
+
+                            <p id="gmailSyncMessage" class="gmail-sync-message hidden"></p>
+                        </div>
+
+                        <p class="privacy-note-dashboard">Private, optional, and always reviewable.</p>
+                    </section>
+
+                    <section id="gmailSuggestionsArea" class="dashboard-card gmail-suggestions-area hidden">
+                        <div class="suggestions-section-heading">
+                            <div class="gmail-suggestions-header">
+                                <div>
+                                    <p class="section-kicker">REVIEW QUEUE</p>
+                                    <h3>Pending suggestions</h3>
+                                </div>
+                                <span id="gmailSuggestionCount" class="suggestion-count">0</span>
+                            </div>
+                            <p>Choose the correct application when TrackToHire cannot match it safely.</p>
+                        </div>
+                        <div class="suggestions-scroll-area">
+                            <div id="gmailSuggestionsList"></div>
+                            <p id="emptyGmailSuggestions" class="empty-message">No pending Gmail suggestions.</p>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

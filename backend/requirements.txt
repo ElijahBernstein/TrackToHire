@@ -1,0 +1,14 @@
+fastapi==0.110.0
+uvicorn==0.28.0
+pydantic==2.6.4
+sqlalchemy==2.0.28
+psycopg2-binary==2.9.9
+bcrypt
+PyJWT
+python-dotenv
+email-validator
+openai>=2.38.0,<3.0.0
+google-api-python-client
+google-auth
+google-auth-oauthlib
+cryptography

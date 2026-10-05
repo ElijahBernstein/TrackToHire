@@ -1,0 +1,2055 @@
+/* Reset and global styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    background-color: #0284c7;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #0369a1;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+
+/* Screen management */
+
+.screen.hidden,
+.hidden {
+    display: none !important;
+}
+
+.screen.active {
+    display: block;
+}
+
+
+/* Landing screen */
+
+#landingScreen {
+    min-height: 100vh;
+    padding: 1.5rem;
+    overflow-x: hidden;
+    background:
+        radial-gradient(
+            circle at 8% 12%,
+            rgba(37, 99, 235, 0.2),
+            transparent 34rem
+        ),
+        radial-gradient(
+            circle at 94% 90%,
+            rgba(34, 211, 238, 0.11),
+            transparent 28rem
+        ),
+        #070b16;
+}
+
+#landingScreen.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-page-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(390px, 0.85fr);
+    width: 100%;
+    max-width: 1180px;
+    min-height: min(760px, calc(100vh - 3rem));
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.88);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 28px;
+    box-shadow: 0 34px 80px rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(18px);
+}
+
+.auth-intro {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+    padding: clamp(2.5rem, 5vw, 4.75rem);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30, 64, 175, 0.2),
+            rgba(8, 15, 32, 0.36)
+        );
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.auth-intro::after {
+    position: absolute;
+    right: -100px;
+    bottom: -120px;
+    width: 360px;
+    height: 360px;
+    background: rgba(34, 211, 238, 0.08);
+    border-radius: 50%;
+    content: "";
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+.brand-lockup,
+.mobile-brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #f8fafc;
+    font-size: 1.35rem;
+    font-weight: 750;
+    letter-spacing: -0.025em;
+    text-decoration: none;
+}
+
+.brand-logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.26);
+}
+
+.auth-intro-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 610px;
+    margin: 4rem 0;
+}
+
+.eyebrow,
+.auth-card-eyebrow {
+    margin-bottom: 1rem;
+    color: #67e8f9;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.auth-intro h1 {
+    max-width: 600px;
+    margin-bottom: 1.35rem;
+    color: #f8fafc;
+    font-size: clamp(2.55rem, 4.3vw, 4.5rem);
+    font-weight: 780;
+    letter-spacing: -0.055em;
+    line-height: 1.02;
+}
+
+.auth-intro-description {
+    max-width: 590px;
+    color: #b8c5d9;
+    font-size: 1.08rem;
+    line-height: 1.75;
+}
+
+.benefit-list {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2.25rem;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+}
+
+.benefit-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    margin-top: 0.05rem;
+    background: rgba(34, 211, 238, 0.12);
+    color: #67e8f9;
+    border: 1px solid rgba(103, 232, 249, 0.28);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 900;
+}
+
+.benefit-item strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #eaf2ff;
+    font-size: 0.98rem;
+}
+
+.benefit-item p {
+    max-width: 510px;
+    color: #93a4bc;
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.privacy-note {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #8292a9;
+    font-size: 0.82rem;
+}
+
+.auth-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 4vw, 4.5rem);
+    background: rgba(8, 15, 32, 0.72);
+}
+
+.mobile-brand-lockup {
+    display: none;
+}
+
+
+/* Authentication form */
+
+.auth-container {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.auth-card-eyebrow {
+    margin-bottom: 0.7rem;
+}
+
+.auth-container h2 {
+    margin-bottom: 0.7rem;
+    color: #f8fafc;
+    font-size: clamp(1.85rem, 3vw, 2.35rem);
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+}
+
+.auth-description {
+    margin-bottom: 2rem;
+    color: #8fa0b8;
+    font-size: 0.96rem;
+    line-height: 1.6;
+}
+
+.auth-container .form-group {
+    margin-bottom: 1.15rem;
+}
+
+.auth-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #c7d2e3;
+    font-size: 0.86rem;
+    font-weight: 650;
+}
+
+.auth-container input {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.8rem 0.95rem;
+    background: rgba(15, 23, 42, 0.82);
+    color: #f8fafc;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.auth-container input::placeholder {
+    color: #64748b;
+}
+
+.auth-container input:focus {
+    outline: none;
+    background: #111c30;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.11);
+}
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    padding-right: 3.25rem;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0.55rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    transform: translateY(-50%);
+    background: transparent;
+    color: #8fa0b8;
+    border-radius: 8px;
+}
+
+.password-toggle:hover {
+    background: rgba(51, 65, 85, 0.55);
+    color: #dbeafe;
+}
+
+.password-toggle:active {
+    transform: translateY(-50%) scale(0.96);
+}
+
+.password-toggle:focus-visible,
+.text-button:focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: 2px;
+}
+
+.eye-icon,
+.eye-icon svg {
+    display: block;
+    width: 21px;
+    height: 21px;
+}
+
+.eye-icon svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+.main-login-btn {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 0.35rem;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(110deg, #2563eb, #0891b2);
+    border-radius: 10px;
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.22);
+}
+
+.main-login-btn:hover {
+    background: linear-gradient(110deg, #1d4ed8, #0e7490);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+    transform: translateY(-1px);
+}
+
+.login-options {
+    display: flex;
+    justify-content: flex-end;
+    margin: -0.25rem 0 1rem;
+}
+
+.text-button {
+    display: inline;
+    padding: 0;
+    background: transparent;
+    color: #67e8f9;
+    border-radius: 3px;
+    font-size: inherit;
+    font-weight: 700;
+}
+
+.text-button:hover {
+    background: transparent;
+    color: #a5f3fc;
+}
+
+.text-button:active {
+    transform: none;
+}
+
+.auth-message {
+    margin: 0 0 1rem;
+    padding: 0.75rem 0.9rem;
+    background: rgba(14, 116, 144, 0.12);
+    color: #bae6fd;
+    border: 1px solid rgba(56, 189, 248, 0.22);
+    border-radius: 9px;
+    font-size: 0.84rem;
+    line-height: 1.5;
+}
+
+.auth-message.error {
+    background: rgba(127, 29, 29, 0.17);
+    color: #fecaca;
+    border-color: rgba(248, 113, 113, 0.3);
+}
+
+.auth-toggle {
+    margin-top: 1.5rem;
+    color: #8fa0b8;
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+#toggleAuthMode {
+    margin-left: 0.3rem;
+}
+
+.auth-footer-note {
+    margin: 2.25rem auto 0;
+    color: #64748b;
+    font-size: 0.78rem;
+    text-align: center;
+}
+
+
+/* Dashboard header */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+    margin-bottom: 0.35rem;
+    color: #38bdf8;
+    font-size: 2.25rem;
+}
+
+.dashboard-subtitle {
+    color: #94a3b8;
+}
+
+.logout-btn {
+    flex-shrink: 0;
+    background-color: #334155;
+}
+
+.logout-btn:hover {
+    background-color: #475569;
+}
+
+
+/* Dashboard sections */
+
+section {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: #1e293b;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+}
+
+section h2 {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    color: #e2e8f0;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #334155;
+}
+
+
+/* Application counter */
+
+.stats-section {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.job-counter-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 260px;
+    padding: 1.4rem 1.6rem;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(2, 132, 199, 0.25),
+            rgba(30, 41, 59, 1)
+        );
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.counter-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 52px;
+    height: 52px;
+    background-color: rgba(56, 189, 248, 0.15);
+    border-radius: 12px;
+    font-size: 1.7rem;
+}
+
+.counter-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.counter-number {
+    color: #f8fafc;
+    font-size: 2rem;
+    font-weight: 750;
+    line-height: 1;
+}
+
+.counter-label {
+    margin-top: 0.35rem;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
+/* Application form */
+
+#jobForm {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(200px, 1fr)
+    );
+    gap: 1.5rem;
+    align-items: flex-end;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+label {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+input {
+    padding: 0.75rem;
+    background-color: #0f172a;
+    color: #f8fafc;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+
+/* Application table */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 1rem;
+    border-bottom: 1px solid #334155;
+}
+
+th {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+td {
+    color: #cbd5e1;
+}
+
+tr:hover td {
+    background-color: #334155;
+}
+
+
+/* Status badges */
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-applied {
+    background-color: #1e3a8a;
+    color: #60a5fa;
+}
+
+.badge-interview {
+    background-color: #3f2d04;
+    color: #f59e0b;
+}
+
+.badge-rejected {
+    background-color: #4c1d15;
+    color: #f87171;
+}
+
+.badge-offer {
+    background-color: #064e3b;
+    color: #34d399;
+}
+
+
+/* Delete button */
+
+.delete-btn {
+    padding: 0.5rem 0.85rem;
+    background-color: transparent;
+    color: #f87171;
+    border: 1px solid #7f1d1d;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.delete-btn:hover {
+    background-color: #7f1d1d;
+    color: #ffffff;
+}
+
+
+/* Empty table message */
+
+.empty-message {
+    padding: 2rem 1rem 0.5rem;
+    color: #94a3b8;
+    text-align: center;
+}
+
+/* Gmail connection section */
+
+.gmail-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.gmail-section-header h2 {
+    flex: 1;
+}
+
+.gmail-description {
+    max-width: 700px;
+    margin-top: -0.75rem;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+.gmail-connection-badge {
+    flex-shrink: 0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.gmail-connection-badge.disconnected {
+    background-color: #4c1d15;
+    color: #fca5a5;
+}
+
+.gmail-connection-badge.connected {
+    background-color: #064e3b;
+    color: #6ee7b7;
+}
+
+.gmail-connection-view {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 10px;
+}
+
+.gmail-connection-view p {
+    margin-bottom: 1rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.gmail-monitoring-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #111c30;
+    border: 1px solid #334155;
+    border-radius: 8px;
+}
+
+.gmail-monitoring-badge {
+    display: inline-flex;
+    padding: 0.35rem 0.7rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.gmail-monitoring-badge.active {
+    background-color: #064e3b;
+    color: #6ee7b7;
+}
+
+.gmail-monitoring-badge.inactive {
+    background-color: #3f3f46;
+    color: #d4d4d8;
+}
+
+.gmail-monitoring-details {
+    margin: 0.65rem 0 0 !important;
+    color: #94a3b8 !important;
+    font-size: 0.9rem;
+}
+
+.monitoring-btn {
+    flex-shrink: 0;
+    background-color: #0369a1;
+}
+
+.monitoring-btn:hover {
+    background-color: #075985;
+}
+
+.monitoring-btn.disable-mode {
+    background-color: transparent;
+    color: #fca5a5;
+    border: 1px solid #7f1d1d;
+}
+
+.monitoring-btn.disable-mode:hover {
+    background-color: rgba(127, 29, 29, 0.2);
+}
+
+.gmail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.disconnect-gmail-btn {
+    background-color: transparent;
+    color: #f87171;
+    border: 1px solid #7f1d1d;
+}
+
+.disconnect-gmail-btn:hover {
+    background-color: #7f1d1d;
+    color: #ffffff;
+}
+
+.gmail-sync-message {
+    margin-top: 1rem;
+    margin-bottom: 0 !important;
+    color: #7dd3fc !important;
+}
+
+.gmail-suggestions-area {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #334155;
+}
+
+.gmail-suggestions-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.gmail-suggestions-header h3 {
+    color: #e2e8f0;
+}
+
+.suggestion-count {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 0.5rem;
+    background-color: #0284c7;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* Gmail suggestion cards */
+
+.gmail-suggestion-card {
+    margin-top: 1rem;
+    padding: 1.25rem;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 10px;
+}
+
+.suggestion-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.suggestion-card-header h4 {
+    margin-bottom: 0.35rem;
+    color: #f8fafc;
+    font-size: 1.05rem;
+}
+
+.suggestion-sender {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+}
+
+.suggestion-details {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+.suggestion-details strong {
+    color: #e2e8f0;
+}
+
+.suggestion-reason {
+    margin-top: 0.4rem;
+    padding: 0.85rem;
+    background-color: #1e293b;
+    border-radius: 7px;
+}
+
+.suggestion-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.confirm-suggestion-btn {
+    background-color: #047857;
+}
+
+.confirm-suggestion-btn:hover {
+    background-color: #065f46;
+}
+
+.ignore-suggestion-btn {
+    background-color: transparent;
+    color: #cbd5e1;
+    border: 1px solid #475569;
+}
+
+.ignore-suggestion-btn:hover {
+    background-color: #475569;
+}
+
+button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Responsive layout */
+
+@media (max-width: 940px) {
+    #landingScreen {
+        padding: 0;
+    }
+
+    .auth-page-shell {
+        display: block;
+        max-width: none;
+        min-height: 100vh;
+        border: none;
+        border-radius: 0;
+    }
+
+    .auth-intro {
+        display: none;
+    }
+
+    .auth-panel {
+        min-height: 100vh;
+        padding: 2.5rem 1.5rem;
+    }
+
+    .mobile-brand-lockup {
+        display: inline-flex;
+        align-self: center;
+        margin-bottom: 3.5rem;
+    }
+
+    .auth-footer-note {
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .dashboard-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .logout-btn {
+        width: 100%;
+    }
+
+    .job-counter-card {
+        width: 100%;
+    }
+
+    section {
+        padding: 1.25rem;
+    }
+
+    .auth-panel {
+        justify-content: flex-start;
+        padding: 1.5rem 1.15rem 2rem;
+    }
+
+    .mobile-brand-lockup {
+        align-self: flex-start;
+        margin-bottom: 3rem;
+    }
+
+    .brand-logo {
+        width: 42px;
+        height: 42px;
+    }
+
+    .auth-description {
+        margin-bottom: 1.6rem;
+    }
+
+    .gmail-section-header {
+        flex-direction: column;
+    }
+
+    .gmail-actions button {
+        width: 100%;
+    }
+
+    .gmail-monitoring-panel {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .gmail-monitoring-panel button {
+        width: 100%;
+    }
+
+    .suggestion-card-header {
+        flex-direction: column;
+    }
+
+    .suggestion-actions button {
+        width: 100%;
+    }
+}
+
+
+/* Dashboard redesign */
+
+#dashboardScreen {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 8% 0%, rgba(37, 99, 235, 0.12), transparent 34rem),
+        #080d19;
+}
+
+.dashboard-shell {
+    width: min(100%, 1540px);
+    margin: 0 auto;
+    padding: 2rem clamp(1.25rem, 3vw, 3.25rem) 4rem;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 1.75rem;
+}
+
+.dashboard-brand-area {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.dashboard-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex: 0 0 auto;
+    color: #f8fafc;
+    font-size: 1.12rem;
+    font-weight: 780;
+    letter-spacing: -0.025em;
+    text-decoration: none;
+}
+
+.dashboard-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+}
+
+.dashboard-heading h1 {
+    margin: 0.18rem 0 0.35rem;
+    color: #f8fafc;
+    font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+    font-weight: 780;
+    letter-spacing: -0.04em;
+}
+
+.dashboard-eyebrow,
+.section-kicker {
+    color: #67e8f9;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.dashboard-subtitle {
+    color: #8fa2bb;
+    font-size: 0.94rem;
+}
+
+.logout-btn {
+    flex: 0 0 auto;
+    padding: 0.68rem 1rem;
+    background: rgba(30, 41, 59, 0.72);
+    color: #cbd5e1;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 10px;
+    font-size: 0.86rem;
+}
+
+.logout-btn:hover {
+    background: #273449;
+}
+
+#dashboardScreen section {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#dashboardScreen section h2 {
+    margin: 0;
+    padding: 0;
+    color: #f1f5f9;
+    border: none;
+    font-size: 1.18rem;
+    letter-spacing: -0.025em;
+}
+
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(105px, 1fr));
+    gap: 0.7rem;
+    margin-bottom: 1rem !important;
+}
+
+.stat-card {
+    display: flex;
+    min-width: 0;
+    padding: 1rem 1.05rem;
+    background: rgba(16, 25, 43, 0.86);
+    color: inherit;
+    border: 1px solid rgba(148, 163, 184, 0.13);
+    border-radius: 13px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.32rem;
+    text-align: left;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.stat-card:hover,
+.stat-card.active {
+    background: rgba(25, 43, 70, 0.92);
+    border-color: rgba(56, 189, 248, 0.44);
+    transform: translateY(-1px);
+}
+
+.stat-card-total {
+    background: linear-gradient(145deg, rgba(29, 78, 216, 0.25), rgba(16, 25, 43, 0.94));
+}
+
+.stat-number {
+    color: #f8fafc;
+    font-size: 1.55rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.stat-label {
+    overflow: hidden;
+    width: 100%;
+    color: #8fa2bb;
+    font-size: 0.77rem;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 365px;
+    gap: 1rem;
+    align-items: start;
+}
+
+.dashboard-main {
+    display: grid;
+    min-width: 0;
+    gap: 1rem;
+}
+
+.dashboard-sidebar {
+    position: sticky;
+    top: 1rem;
+}
+
+#dashboardScreen .dashboard-card {
+    padding: 1.35rem;
+    background: rgba(16, 25, 43, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.13);
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+}
+
+.section-heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.15rem;
+}
+
+.section-heading-row > p,
+.visible-job-count {
+    color: #7f92aa;
+    font-size: 0.78rem;
+}
+
+.section-kicker {
+    margin-bottom: 0.32rem;
+}
+
+.form-section #jobForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1.25fr auto;
+    gap: 0.75rem;
+    align-items: end;
+}
+
+#dashboardScreen .form-group {
+    gap: 0.38rem;
+}
+
+#dashboardScreen label {
+    color: #9fb0c5;
+    font-size: 0.75rem;
+}
+
+#dashboardScreen input,
+#dashboardScreen select {
+    min-height: 43px;
+    padding: 0.68rem 0.75rem;
+    background: #0a1120;
+    color: #e8eef7;
+    border: 1px solid #28364b;
+    border-radius: 9px;
+    font-size: 0.86rem;
+}
+
+#dashboardScreen input::placeholder {
+    color: #56677f;
+}
+
+#dashboardScreen input:focus,
+#dashboardScreen select:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+
+.add-application-btn {
+    min-height: 43px;
+    padding: 0.7rem 1rem;
+    border-radius: 9px;
+    white-space: nowrap;
+}
+
+.jobs-heading {
+    margin-bottom: 1rem;
+}
+
+.visible-job-count {
+    padding: 0.35rem 0.62rem;
+    background: #111d30;
+    border: 1px solid #29374c;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.filter-toolbar {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) 155px 155px auto;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+}
+
+.search-field {
+    position: relative;
+}
+
+.search-field > span {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    color: #71839a;
+    font-size: 1.15rem;
+    transform: translateY(-52%);
+    pointer-events: none;
+}
+
+#dashboardScreen .search-field input {
+    width: 100%;
+    padding-left: 2.1rem;
+}
+
+.secondary-btn {
+    background: #111d30;
+    color: #c4d0df;
+    border: 1px solid #2c3b51;
+}
+
+.secondary-btn:hover {
+    background: #203047;
+}
+
+.table-container {
+    min-height: 260px;
+    overflow-x: auto;
+    border: 1px solid rgba(148, 163, 184, 0.11);
+    border-radius: 11px;
+}
+
+#jobsTable {
+    min-width: 900px;
+    margin: 0;
+}
+
+#jobsTable th,
+#jobsTable td {
+    padding: 0.82rem 0.75rem;
+}
+
+#jobsTable th {
+    background: rgba(10, 17, 32, 0.86);
+    color: #7588a1;
+    border-bottom-color: #27364b;
+    font-size: 0.69rem;
+}
+
+#jobsTable td {
+    color: #b9c7d9;
+    border-bottom-color: rgba(51, 65, 85, 0.56);
+    font-size: 0.84rem;
+}
+
+#jobsTable tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+#jobsTable tr:hover td {
+    background: rgba(30, 48, 72, 0.52);
+}
+
+.company-cell strong {
+    color: #edf4ff;
+    font-weight: 700;
+}
+
+.job-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #67e8f9;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.job-link:hover {
+    color: #a5f3fc;
+    text-decoration: underline;
+}
+
+.no-link {
+    color: #53657c;
+}
+
+.badge {
+    padding: 0.28rem 0.58rem;
+    font-size: 0.72rem;
+}
+
+.badge-assessment {
+    background: #3b2c0a;
+    color: #fbbf24;
+}
+
+.badge-withdrawn {
+    background: #312e3f;
+    color: #c4b5fd;
+}
+
+.badge-unknown {
+    background: #293341;
+    color: #cbd5e1;
+}
+
+.delete-btn {
+    padding: 0.38rem 0.58rem;
+    border-radius: 7px;
+    font-size: 0.74rem;
+}
+
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.85rem;
+}
+
+.table-footer label,
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+#dashboardScreen .table-footer select {
+    min-height: 36px;
+    padding: 0.35rem 1.7rem 0.35rem 0.55rem;
+}
+
+.pagination-controls span {
+    min-width: 88px;
+    color: #8092a9;
+    font-size: 0.76rem;
+    text-align: center;
+}
+
+.pagination-controls button {
+    padding: 0.5rem 0.72rem;
+    border-radius: 8px;
+    font-size: 0.76rem;
+}
+
+.gmail-section-header {
+    align-items: center;
+}
+
+.gmail-description {
+    margin: 0.85rem 0 1rem;
+    color: #8fa2bb;
+    font-size: 0.84rem;
+    line-height: 1.55;
+}
+
+.gmail-connection-badge {
+    padding: 0.34rem 0.58rem;
+    font-size: 0.68rem;
+}
+
+.monitoring-steps {
+    display: grid;
+    gap: 0.88rem;
+    margin: 0 0 1.1rem;
+    list-style: none;
+}
+
+.monitoring-steps li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0.7rem;
+    align-items: start;
+}
+
+.monitoring-steps li > span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    background: rgba(37, 99, 235, 0.17);
+    color: #7dd3fc;
+    border: 1px solid rgba(125, 211, 252, 0.22);
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 850;
+}
+
+.monitoring-steps strong {
+    display: block;
+    margin-bottom: 0.15rem;
+    color: #dce7f5;
+    font-size: 0.82rem;
+}
+
+.monitoring-steps p {
+    color: #7f92aa;
+    font-size: 0.75rem;
+    line-height: 1.45;
+}
+
+.gmail-connection-view {
+    margin-top: 0;
+    padding: 0.9rem;
+    background: #0a1120;
+    border-color: #29374c;
+    border-radius: 10px;
+}
+
+.gmail-connection-view p {
+    margin-bottom: 0.75rem;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.gmail-connection-view > button,
+.gmail-monitoring-panel button,
+.gmail-actions button {
+    width: 100%;
+    padding: 0.62rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.76rem;
+}
+
+.connected-email {
+    overflow-wrap: anywhere;
+}
+
+.gmail-monitoring-panel {
+    display: block;
+    margin-bottom: 0.75rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+}
+
+.gmail-monitoring-details {
+    margin: 0.55rem 0 0.75rem !important;
+    font-size: 0.72rem;
+    line-height: 1.45;
+}
+
+.gmail-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+}
+
+.gmail-sync-message {
+    margin-top: 0.65rem !important;
+    font-size: 0.74rem;
+}
+
+.gmail-suggestions-area {
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.gmail-suggestions-header h3 {
+    font-size: 0.88rem;
+}
+
+.suggestion-count {
+    min-width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+}
+
+.gmail-suggestion-card {
+    padding: 0.85rem;
+}
+
+.suggestion-card-header h4 {
+    font-size: 0.86rem;
+}
+
+.suggestion-sender,
+.suggestion-details,
+.suggestion-actions button {
+    font-size: 0.72rem;
+}
+
+.privacy-note-dashboard {
+    margin-top: 1rem;
+    color: #63758d;
+    font-size: 0.68rem;
+    text-align: center;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    border: 0 !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+}
+
+@media (max-width: 1250px) {
+    .stats-section {
+        grid-template-columns: repeat(4, minmax(120px, 1fr));
+    }
+
+    .form-section #jobForm {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .add-application-btn {
+        grid-column: span 2;
+    }
+
+    .filter-toolbar {
+        grid-template-columns: minmax(200px, 1fr) 145px 145px auto;
+    }
+}
+
+@media (max-width: 1000px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-sidebar {
+        position: static;
+    }
+
+    .dashboard-sidebar .gmail-section {
+        max-width: none;
+    }
+}
+
+@media (max-width: 760px) {
+    .dashboard-shell {
+        padding: 1rem 0.8rem 2.5rem;
+    }
+
+    .dashboard-header,
+    .dashboard-brand-area {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .dashboard-brand-area {
+        gap: 1.15rem;
+    }
+
+    .logout-btn {
+        position: absolute;
+        top: 1rem;
+        right: 0.8rem;
+        width: auto;
+    }
+
+    .stats-section {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 0.35rem !important;
+        scroll-snap-type: x proximity;
+    }
+
+    .stat-card {
+        flex: 0 0 118px;
+        scroll-snap-align: start;
+    }
+
+    .form-section #jobForm,
+    .filter-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .add-application-btn {
+        grid-column: auto;
+    }
+
+    .section-heading-row,
+    .table-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .section-heading-row > p {
+        display: none;
+    }
+
+    .filter-toolbar .secondary-btn {
+        width: 100%;
+    }
+
+    .pagination-controls {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .gmail-section-header {
+        align-items: flex-start;
+        flex-direction: row;
+    }
+}
+
+/* --- DASHBOARD WORKSPACES AND EMAIL CENTER --- */
+
+.dashboard-section-navigation {
+    margin-bottom: 1rem;
+}
+
+.dashboard-tabs {
+    display: inline-flex;
+    gap: 0.35rem;
+    padding: 0.3rem;
+    background: rgba(10, 17, 32, 0.82);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 12px;
+}
+
+.dashboard-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 42px;
+    padding: 0.65rem 1rem;
+    background: transparent;
+    color: #8fa2bb;
+    border: 0;
+    border-radius: 9px;
+    font-size: 0.88rem;
+    font-weight: 750;
+}
+
+.dashboard-tab:hover {
+    background: rgba(30, 48, 72, 0.55);
+    color: #dce7f5;
+}
+
+.dashboard-tab.active {
+    background: #17263c;
+    color: #f8fafc;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.18);
+}
+
+.navigation-count {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 0.38rem;
+    background: #0284c7;
+    color: #fff;
+    border-radius: 999px;
+    font-size: 0.72rem;
+}
+
+.mobile-section-picker {
+    display: none;
+}
+
+.workspace-panel {
+    min-width: 0;
+}
+
+.email-center-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.email-center-heading h2 {
+    color: #f8fafc;
+    font-size: 1.35rem;
+    letter-spacing: -0.025em;
+}
+
+.email-center-heading > p,
+.suggestions-section-heading > p {
+    color: #7f92aa;
+    font-size: 0.84rem;
+}
+
+.email-center-grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.monitoring-how {
+    margin-bottom: 1rem;
+    background: #0a1120;
+    border: 1px solid #29374c;
+    border-radius: 10px;
+}
+
+.monitoring-how summary {
+    padding: 0.8rem 0.9rem;
+    color: #cbd5e1;
+    font-size: 0.84rem;
+    font-weight: 750;
+    cursor: pointer;
+}
+
+.monitoring-how summary:hover {
+    color: #fff;
+}
+
+.monitoring-how[open] summary {
+    border-bottom: 1px solid #29374c;
+}
+
+.monitoring-how .monitoring-steps {
+    margin: 0;
+    padding: 0.9rem;
+}
+
+#dashboardScreen .gmail-suggestions-area {
+    margin: 0;
+    padding: 1.35rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.13);
+}
+
+.suggestions-section-heading {
+    margin-bottom: 1rem;
+}
+
+.gmail-suggestions-header {
+    margin-bottom: 0.35rem;
+}
+
+.gmail-suggestions-header h3 {
+    color: #f8fafc;
+    font-size: 1.15rem;
+}
+
+.suggestions-scroll-area {
+    max-height: 72vh;
+    overflow-y: auto;
+    padding-right: 0.3rem;
+    scrollbar-color: #334155 transparent;
+}
+
+#gmailSuggestionsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
+    gap: 0.8rem;
+}
+
+.gmail-suggestion-card {
+    display: flex;
+    min-width: 0;
+    margin: 0;
+    padding: 1rem;
+    flex-direction: column;
+}
+
+.suggestion-details {
+    flex: 1;
+}
+
+.suggestion-match-summary {
+    color: #9fb0c5;
+    line-height: 1.45;
+}
+
+.suggestion-application-field {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0.75rem 0;
+}
+
+#dashboardScreen .suggestion-application-field label {
+    color: #cbd5e1;
+    font-size: 0.82rem;
+    font-weight: 750;
+}
+
+#dashboardScreen .suggestion-application-select {
+    width: 100%;
+    min-height: 42px;
+    font-size: 0.84rem;
+}
+
+.suggestion-actions {
+    margin-top: 0.85rem;
+}
+
+.suggestion-actions button {
+    min-height: 42px;
+    font-size: 0.82rem;
+}
+
+@media (max-width: 1050px) {
+    .email-center-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .suggestions-scroll-area {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 760px) {
+    .dashboard-section-navigation {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        margin: 0 -0.8rem 1rem;
+        padding: 0.7rem 0.8rem;
+        background: rgba(5, 12, 24, 0.96);
+        border-top: 1px solid rgba(148, 163, 184, 0.08);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+        backdrop-filter: blur(14px);
+    }
+
+    .dashboard-tabs {
+        display: none;
+    }
+
+    .mobile-section-picker {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 0.7rem;
+        align-items: center;
+    }
+
+    #dashboardScreen .mobile-section-picker label {
+        color: #cbd5e1;
+        font-size: 0.82rem;
+        font-weight: 750;
+    }
+
+    #dashboardScreen .mobile-section-picker select {
+        width: 100%;
+        min-height: 44px;
+        font-size: 0.9rem;
+    }
+
+    .email-center-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .email-center-heading > p {
+        font-size: 0.82rem;
+    }
+
+    #dashboardScreen .dashboard-card,
+    #dashboardScreen .gmail-suggestions-area {
+        padding: 1rem;
+        border-radius: 13px;
+    }
+
+    .monitoring-how summary,
+    .gmail-description,
+    .gmail-connection-view p,
+    .suggestions-section-heading > p {
+        font-size: 0.84rem;
+    }
+
+    .monitoring-steps strong,
+    .monitoring-steps p,
+    .suggestion-sender,
+    .suggestion-details {
+        font-size: 0.82rem;
+    }
+
+    #jobsTable {
+        display: block;
+        min-width: 0;
+    }
+
+    #jobsTable thead {
+        display: none;
+    }
+
+    #jobsTable tbody {
+        display: grid;
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
+
+    #jobsTable tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem 1rem;
+        padding: 1rem;
+        background: #0d1729;
+        border: 1px solid #29374c;
+        border-radius: 11px;
+    }
+
+    #jobsTable td {
+        display: grid;
+        gap: 0.25rem;
+        padding: 0;
+        border: 0;
+        font-size: 0.88rem;
+    }
+
+    #jobsTable td::before {
+        content: attr(data-label);
+        color: #71839a;
+        font-size: 0.7rem;
+        font-weight: 750;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    #jobsTable .company-cell,
+    #jobsTable td:nth-child(2),
+    #jobsTable .job-action-cell {
+        grid-column: 1 / -1;
+    }
+
+    #jobsTable tr:hover td {
+        background: transparent;
+    }
+
+    #jobsTable .delete-btn {
+        justify-self: start;
+        min-height: 40px;
+        padding: 0.55rem 0.8rem;
+    }
+
+    #gmailSuggestionsList {
+        grid-template-columns: 1fr;
+    }
+
+    .suggestion-card-header {
+        gap: 0.7rem;
+    }
+
+    .suggestion-card-header h4 {
+        font-size: 0.95rem;
+    }
+
+    .suggestion-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+    .mobile-section-picker {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+    }
+
+    #jobsTable tr {
+        grid-template-columns: 1fr;
+    }
+
+    #jobsTable td,
+    #jobsTable .company-cell,
+    #jobsTable td:nth-child(2),
+    #jobsTable .job-action-cell {
+        grid-column: 1;
+    }
+
+    .suggestion-actions {
+        grid-template-columns: 1fr;
+    }
+}
