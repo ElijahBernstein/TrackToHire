@@ -14,7 +14,9 @@ body {
 }
 
 button,
-input {
+input,
+select,
+textarea {
     font: inherit;
 }
 
@@ -1397,6 +1399,129 @@ button:disabled {
     font-size: 0.74rem;
 }
 
+.job-action-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.edit-btn {
+    padding: 0.38rem 0.58rem;
+    background: transparent;
+    color: #67e8f9;
+    border: 1px solid #155e75;
+    border-radius: 7px;
+    font-size: 0.74rem;
+}
+
+.edit-btn:hover {
+    background: #155e75;
+    color: #ecfeff;
+}
+
+.edit-application-dialog {
+    width: min(720px, calc(100% - 2rem));
+    max-height: calc(100vh - 2rem);
+    margin: auto;
+    padding: 0;
+    overflow-y: auto;
+    background: #10192b;
+    color: #e8eef7;
+    border: 1px solid #33445c;
+    border-radius: 16px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.edit-application-dialog::backdrop {
+    background: rgba(2, 6, 23, 0.78);
+    backdrop-filter: blur(3px);
+}
+
+#editApplicationForm {
+    padding: 1.5rem;
+}
+
+.edit-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.dialog-close-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    flex-shrink: 0;
+    background: transparent;
+    color: #94a3b8;
+    border: 1px solid #334155;
+    border-radius: 9px;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.dialog-close-btn:hover {
+    background: #25344a;
+    color: #ffffff;
+}
+
+.edit-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.edit-application-dialog input,
+.edit-application-dialog select,
+.edit-application-dialog textarea {
+    width: 100%;
+    padding: 0.72rem 0.78rem;
+    background: #0a1120;
+    color: #e8eef7;
+    border: 1px solid #28364b;
+    border-radius: 9px;
+}
+
+.edit-application-dialog textarea {
+    min-height: 105px;
+    resize: vertical;
+}
+
+.edit-application-dialog input:focus,
+.edit-application-dialog select:focus,
+.edit-application-dialog textarea:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+
+.edit-job-link-group,
+.edit-notes-group {
+    grid-column: 1 / -1;
+}
+
+.form-message {
+    margin-top: 1rem;
+    color: #fca5a5;
+    font-size: 0.86rem;
+}
+
+.edit-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.primary-btn,
+.edit-dialog-actions .secondary-btn {
+    min-height: 42px;
+    padding: 0.65rem 1rem;
+    border-radius: 9px;
+}
+
 .table-footer {
     display: flex;
     justify-content: space-between;
@@ -2014,6 +2139,17 @@ button:disabled {
         padding: 0.55rem 0.8rem;
     }
 
+    #jobsTable .job-action-cell {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #jobsTable .edit-btn {
+        min-height: 40px;
+        padding: 0.55rem 0.8rem;
+    }
+
     #gmailSuggestionsList {
         grid-template-columns: 1fr;
     }
@@ -2051,5 +2187,18 @@ button:disabled {
 
     .suggestion-actions {
         grid-template-columns: 1fr;
+    }
+
+    .edit-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-job-link-group,
+    .edit-notes-group {
+        grid-column: 1;
+    }
+
+    .edit-dialog-actions {
+        flex-direction: column-reverse;
     }
 }

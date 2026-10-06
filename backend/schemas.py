@@ -30,6 +30,23 @@ class ApplicationCreate(BaseModel):
     personal_notes: Optional[str] = None
 
 
+class ApplicationUpdate(BaseModel):
+    """
+    Fields an authenticated owner may change on an application.
+
+    Every field is optional so PATCH requests can update only the
+    values that changed.
+    """
+
+    company_name: Optional[str] = None
+    job_title: Optional[str] = None
+    date_applied: Optional[date] = None
+    location: Optional[str] = None
+    job_link: Optional[str] = None
+    personal_notes: Optional[str] = None
+    status: Optional[ApplicationStatus] = None
+
+
 class ApplicationResponse(BaseModel):
     """
     Job application data returned to the frontend.

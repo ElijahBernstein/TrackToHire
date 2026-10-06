@@ -7,6 +7,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from pydantic import ValidationError
+
 
 # main.py creates missing tables during import. Use an isolated test database.
 TEST_DATABASE_DIRECTORY = tempfile.TemporaryDirectory()
@@ -203,6 +205,173 @@ class EmailMonitoringRegressionTests(unittest.TestCase):
             self.assertIsNone(suggestion.application_id)
         finally:
             db.close()
+
+    def test_owner_can_edit_all_application_fields(self):
+        db = SessionLocal()
+
+        try:
+            user = models.DBUser(
+                email="editor@example.com",
+                hashed_password="test-hash",
+            )
+            db.add(user)
+            db.flush()
+
+            application = models.DBApplication(
+                company_name="Old Company",
+                job_title="Old Role",
+                date_applied=date(2026, 9, 1),
+                location="Old Location",
+                job_link="https://old.example.com",
+                personal_notes="Old notes",
+                status="Applied",
+                user_id=user.id,
+            )
+            db.add(application)
+            db.commit()
+
+            result = main.update_application(
+                application_id=application.id,
+                application_update=schemas.ApplicationUpdate(
+                    company_name="New Company",
+                    job_title="Cloud Engineering Intern",
+                    date_applied=date(2026, 10, 5),
+                    location="Remote",
+                    job_link="https://new.example.com/job",
+                    personal_notes="Updated notes",
+                    status="Interview",
+                ),
+                db=db,
+                current_user=user,
+            )
+
+            self.assertEqual(result.company_name, "New Company")
+            self.assertEqual(
+                result.job_title,
+                "Cloud Engineering Intern",
+            )
+            self.assertEqual(result.date_applied, date(2026, 10, 5))
+            self.assertEqual(result.location, "Remote")
+            self.assertEqual(
+                result.job_link,
+                "https://new.example.com/job",
+            )
+            self.assertEqual(result.personal_notes, "Updated notes")
+            self.assertEqual(result.status, "Interview")
+
+            history = (
+                db.query(models.DBApplicationStatusHistory)
+                .filter(
+                    models.DBApplicationStatusHistory.application_id
+                    == application.id
+                )
+                .one()
+            )
+
+            self.assertEqual(history.old_status, "Applied")
+            self.assertEqual(history.new_status, "Interview")
+            self.assertEqual(history.source, "manual")
+        finally:
+            db.close()
+
+    def test_partial_edit_preserves_unchanged_fields(self):
+        db = SessionLocal()
+
+        try:
+            user = models.DBUser(
+                email="partial-editor@example.com",
+                hashed_password="test-hash",
+            )
+            db.add(user)
+            db.flush()
+
+            application = models.DBApplication(
+                company_name="Example Company",
+                job_title="Software Engineer Intern",
+                date_applied=date(2026, 9, 15),
+                location="Seattle, WA",
+                job_link="https://example.com/job",
+                personal_notes="Keep these notes",
+                status="Assessment",
+                user_id=user.id,
+            )
+            db.add(application)
+            db.commit()
+
+            result = main.update_application(
+                application_id=application.id,
+                application_update=schemas.ApplicationUpdate(
+                    location="Bellingham, WA",
+                ),
+                db=db,
+                current_user=user,
+            )
+
+            self.assertEqual(result.location, "Bellingham, WA")
+            self.assertEqual(result.company_name, "Example Company")
+            self.assertEqual(
+                result.job_title,
+                "Software Engineer Intern",
+            )
+            self.assertEqual(result.status, "Assessment")
+            self.assertEqual(result.personal_notes, "Keep these notes")
+
+            history_count = (
+                db.query(models.DBApplicationStatusHistory)
+                .filter(
+                    models.DBApplicationStatusHistory.application_id
+                    == application.id
+                )
+                .count()
+            )
+
+            self.assertEqual(history_count, 0)
+        finally:
+            db.close()
+
+    def test_user_cannot_edit_another_users_application(self):
+        db = SessionLocal()
+
+        try:
+            owner = models.DBUser(
+                email="application-owner@example.com",
+                hashed_password="test-hash",
+            )
+            other_user = models.DBUser(
+                email="unauthorized-editor@example.com",
+                hashed_password="test-hash",
+            )
+            db.add_all([owner, other_user])
+            db.flush()
+
+            application = models.DBApplication(
+                company_name="Private Company",
+                job_title="Private Role",
+                date_applied=date.today(),
+                status="Applied",
+                user_id=owner.id,
+            )
+            db.add(application)
+            db.commit()
+
+            with self.assertRaises(main.HTTPException) as context:
+                main.update_application(
+                    application_id=application.id,
+                    application_update=schemas.ApplicationUpdate(
+                        company_name="Unauthorized Change",
+                    ),
+                    db=db,
+                    current_user=other_user,
+                )
+
+            self.assertEqual(context.exception.status_code, 404)
+            self.assertEqual(application.company_name, "Private Company")
+        finally:
+            db.close()
+
+    def test_application_edit_rejects_unknown_status(self):
+        with self.assertRaises(ValidationError):
+            schemas.ApplicationUpdate(status="Hired")
 
     def test_nested_mime_payload_prefers_complete_plain_text(self):
         plain_text = (
