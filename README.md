@@ -7,7 +7,7 @@ The application is deployed at [tracktohire.app](https://tracktohire.app). This 
 ## Features
 
 - Account creation and login with bcrypt password hashing and expiring JWTs
-- User-owned application creation, listing, status updates, history, and deletion
+- User-owned application creation, listing, full editing, status history, and deletion
 - Dashboard search, filtering, sorting, pagination, and status counts
 - Optional Gmail connection through OAuth 2.0 using the read-only Gmail scope
 - Manual Gmail synchronization and user-controlled automatic monitoring
@@ -18,7 +18,7 @@ The application is deployed at [tracktohire.app](https://tracktohire.app). This 
 - Separate background worker for email processing and Gmail watch renewal
 - Encrypted Gmail refresh-token storage
 
-Full application-field editing is planned but is not part of the current baseline. At present, an application can be created, have its status updated, or be deleted.
+Application fields can be edited without deleting and recreating a record. Partial API updates preserve omitted fields, and an edit creates a history event only when it changes the application status.
 
 ## Architecture
 
@@ -223,7 +223,6 @@ The repository does not yet contain a complete reproducible infrastructure defin
 
 ## Current Limitations and Roadmap
 
-- Add full editing for application fields while preserving ownership and status history.
 - Make the frontend API base URL environment-aware.
 - Expand isolated API and authentication test coverage.
 - Add automated continuous integration checks.
