@@ -2069,6 +2069,124 @@ def get_applications(
 
 
 @app.patch(
+    "/api/v1/applications/{application_id}",
+    response_model=schemas.ApplicationResponse,
+)
+def update_application(
+    application_id: int,
+    application_update: schemas.ApplicationUpdate,
+    db: Session = Depends(get_db),
+    current_user: models.DBUser = Depends(get_current_user),
+):
+    """
+    Updates supplied fields on an application owned by the
+    authenticated user.
+
+    Omitted fields remain unchanged. A status-history event is
+    created only when this edit actually changes the status.
+    """
+
+    application = (
+        db.query(models.DBApplication)
+        .filter(
+            models.DBApplication.id == application_id,
+            models.DBApplication.user_id == current_user.id,
+        )
+        .first()
+    )
+
+    if not application:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Application not found.",
+        )
+
+    supplied_fields = application_update.model_dump(
+        exclude_unset=True
+    )
+
+    if not supplied_fields:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Provide at least one field to update.",
+        )
+
+    for required_field, display_name in (
+        ("company_name", "Company name"),
+        ("job_title", "Job title"),
+    ):
+        if required_field not in supplied_fields:
+            continue
+
+        value = supplied_fields[required_field]
+
+        if value is None or not value.strip():
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"{display_name} cannot be blank.",
+            )
+
+        supplied_fields[required_field] = value.strip()
+
+    if (
+        "date_applied" in supplied_fields
+        and supplied_fields["date_applied"] is None
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Application date cannot be blank.",
+        )
+
+    if (
+        "status" in supplied_fields
+        and supplied_fields["status"] is None
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Application status cannot be blank.",
+        )
+
+    for optional_field in (
+        "location",
+        "job_link",
+        "personal_notes",
+    ):
+        if optional_field not in supplied_fields:
+            continue
+
+        value = supplied_fields[optional_field]
+
+        if isinstance(value, str):
+            supplied_fields[optional_field] = (
+                value.strip() or None
+            )
+
+    previous_status = application.status
+
+    for field_name, value in supplied_fields.items():
+        setattr(application, field_name, value)
+
+    if (
+        "status" in supplied_fields
+        and application.status != previous_status
+    ):
+        status_event = models.DBApplicationStatusHistory(
+            application_id=application.id,
+            old_status=previous_status,
+            new_status=application.status,
+            source="manual",
+            reason="Application status changed while editing.",
+        )
+
+        db.add(status_event)
+
+    db.commit()
+    db.refresh(application)
+
+    return application
+
+
+@app.patch(
     "/api/v1/applications/{application_id}/status",
     response_model=schemas.ApplicationResponse,
 )

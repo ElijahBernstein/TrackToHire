@@ -94,6 +94,26 @@ const statusCounterElements = {
 const emptyJobsMessage = document.getElementById(
     "emptyJobsMessage"
 );
+const editApplicationDialog = document.getElementById(
+    "editApplicationDialog"
+);
+const editApplicationForm = document.getElementById(
+    "editApplicationForm"
+);
+const closeEditApplicationBtn = document.getElementById(
+    "closeEditApplicationBtn"
+);
+const cancelEditApplicationBtn = document.getElementById(
+    "cancelEditApplicationBtn"
+);
+const saveEditApplicationBtn = document.getElementById(
+    "saveEditApplicationBtn"
+);
+const editApplicationMessage = document.getElementById(
+    "editApplicationMessage"
+);
+
+let editingApplicationId = null;
 
 // --- GMAIL PAGE ELEMENTS ---
 
@@ -1342,13 +1362,20 @@ function createJobRow(job) {
 
     const actionCell = document.createElement("td");
     actionCell.className = "job-action-cell";
+    const editButton = document.createElement("button");
     const deleteButton = document.createElement("button");
+
+    editButton.type = "button";
+    editButton.className = "edit-btn";
+    editButton.textContent = "Edit";
+    editButton.dataset.applicationId = job.id;
 
     deleteButton.type = "button";
     deleteButton.className = "delete-btn";
     deleteButton.textContent = "Delete";
     deleteButton.dataset.applicationId = job.id;
 
+    actionCell.appendChild(editButton);
     actionCell.appendChild(deleteButton);
 
     companyCell.dataset.label = "Company";
@@ -1368,6 +1395,157 @@ function createJobRow(job) {
     row.appendChild(actionCell);
 
     return row;
+}
+
+
+// --- EDIT APPLICATION ---
+
+function closeEditApplicationDialog() {
+    editingApplicationId = null;
+    editApplicationForm.reset();
+    editApplicationMessage.textContent = "";
+    editApplicationMessage.classList.add("hidden");
+
+    if (editApplicationDialog.open) {
+        editApplicationDialog.close();
+    }
+}
+
+
+function openEditApplicationDialog(applicationId) {
+    const application = allApplications.find(
+        (item) => item.id === applicationId
+    );
+
+    if (!application) {
+        alert("Could not find that application.");
+        return;
+    }
+
+    editingApplicationId = application.id;
+
+    document.getElementById("editCompanyName").value =
+        application.company_name || "";
+    document.getElementById("editJobTitle").value =
+        application.job_title || "";
+    document.getElementById("editLocation").value =
+        application.location || "";
+    document.getElementById("editDateApplied").value =
+        application.date_applied
+            ? application.date_applied.split("T")[0]
+            : "";
+    document.getElementById("editStatus").value =
+        APPLICATION_STATUSES.includes(application.status)
+            ? application.status
+            : "Unknown";
+    document.getElementById("editJobLink").value =
+        application.job_link || "";
+    document.getElementById("editPersonalNotes").value =
+        application.personal_notes || "";
+
+    editApplicationMessage.textContent = "";
+    editApplicationMessage.classList.add("hidden");
+    editApplicationDialog.showModal();
+}
+
+
+async function updateApplication(event) {
+    event.preventDefault();
+
+    if (!accessToken || !Number.isInteger(editingApplicationId)) {
+        alert("Your login has expired. Please log in again.");
+        closeEditApplicationDialog();
+        switchToLogin();
+        return;
+    }
+
+    const jobLinkInput = document
+        .getElementById("editJobLink")
+        .value
+        .trim();
+
+    const normalizedJobLink = normalizeJobLink(jobLinkInput);
+
+    if (jobLinkInput && !normalizedJobLink) {
+        editApplicationMessage.textContent =
+            "Please enter a valid company or job URL.";
+        editApplicationMessage.classList.remove("hidden");
+        return;
+    }
+
+    const payload = {
+        company_name: document
+            .getElementById("editCompanyName")
+            .value
+            .trim(),
+        job_title: document
+            .getElementById("editJobTitle")
+            .value
+            .trim(),
+        location: document
+            .getElementById("editLocation")
+            .value
+            .trim() || null,
+        date_applied: document
+            .getElementById("editDateApplied")
+            .value,
+        status: document.getElementById("editStatus").value,
+        job_link: normalizedJobLink,
+        personal_notes: document
+            .getElementById("editPersonalNotes")
+            .value
+            .trim() || null
+    };
+
+    saveEditApplicationBtn.disabled = true;
+    saveEditApplicationBtn.textContent = "Saving...";
+    editApplicationMessage.textContent = "";
+    editApplicationMessage.classList.add("hidden");
+
+    try {
+        const response = await fetch(
+            `${API_URL}/${editingApplicationId}`,
+            {
+                method: "PATCH",
+                headers: getAuthHeaders(true),
+                body: JSON.stringify(payload)
+            }
+        );
+
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+            closeEditApplicationDialog();
+            alert("Your login has expired. Please log in again.");
+            switchToLogin();
+            return;
+        }
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            editApplicationMessage.textContent =
+                data.detail || "Could not update the application.";
+            editApplicationMessage.classList.remove("hidden");
+            return;
+        }
+
+        closeEditApplicationDialog();
+        await fetchApplications();
+    } catch (error) {
+        console.error(
+            "Network error while updating application:",
+            error
+        );
+
+        editApplicationMessage.textContent =
+            "Could not connect to the backend.";
+        editApplicationMessage.classList.remove("hidden");
+    } finally {
+        saveEditApplicationBtn.disabled = false;
+        saveEditApplicationBtn.textContent = "Save changes";
+    }
 }
 
 
@@ -1807,9 +1985,25 @@ dashboardSectionSelect.addEventListener("change", () => {
 });
 
 
-// --- DELETE BUTTON CLICK HANDLER ---
+// --- APPLICATION ACTION HANDLERS ---
 
 jobsTableBody.addEventListener("click", (event) => {
+    const editButton = event.target.closest(".edit-btn");
+
+    if (editButton) {
+        const applicationId = Number(
+            editButton.dataset.applicationId
+        );
+
+        if (!Number.isInteger(applicationId)) {
+            alert("Invalid application ID.");
+            return;
+        }
+
+        openEditApplicationDialog(applicationId);
+        return;
+    }
+
     const deleteButton = event.target.closest(
         ".delete-btn"
     );
@@ -1828,6 +2022,26 @@ jobsTableBody.addEventListener("click", (event) => {
     }
 
     deleteApplication(applicationId);
+});
+
+editApplicationForm.addEventListener(
+    "submit",
+    updateApplication
+);
+
+closeEditApplicationBtn.addEventListener(
+    "click",
+    closeEditApplicationDialog
+);
+
+cancelEditApplicationBtn.addEventListener(
+    "click",
+    closeEditApplicationDialog
+);
+
+editApplicationDialog.addEventListener("cancel", () => {
+    editingApplicationId = null;
+    editApplicationForm.reset();
 });
 
 // --- GMAIL BUTTON HANDLERS ---
